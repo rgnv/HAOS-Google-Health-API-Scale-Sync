@@ -8,6 +8,14 @@ views:
       - type: picture-elements
         image: /local/ge_fit_plus_ln_health_hero.svg
         elements:
+          - type: image
+            image: /local/ge_fit_plus_ln_body_male.png
+            style:
+              left: 25%
+              top: 50%
+              width: 29%
+              opacity: .78
+              filter: drop-shadow(0 6px 18px rgba(0,0,0,.35))
           - type: state-label
             entity: sensor.ge_fit_plus_ln_weight
             style:
@@ -152,3 +160,39 @@ views:
             name: Weight
           - entity: sensor.ge_fit_plus_ln_body_fat
             name: Body fat
+
+  - title: Setup
+    path: setup
+    icon: mdi:tune-variant
+    badges: []
+    cards:
+      - type: markdown
+        content: |
+          ## Scale setup
+          Configure the profile and sync behavior once, then return to **Body** for the monitor view.
+
+          [Open Scale Sync settings](/config/integrations/integration/google_health_scale_sync)
+
+          The setup form stores height, age, sex, optional birth date, and body-fat sync preference locally in Home Assistant. Google authorization remains limited to the write scope required for measurements.
+      - type: entities
+        title: Runtime checks
+        show_header_toggle: false
+        entities:
+          - entity: automation.ge_fit_plus_ln_write_google_health
+            name: Google Health automation
+            secondary_info: last-triggered
+          - entity: sensor.ge_fit_plus_ln_measurement_id
+            name: Latest measurement
+            secondary_info: last-changed
+          - entity: sensor.ge_fit_plus_ln_weight
+            name: Weight publisher
+            secondary_info: last-changed
+          - entity: sensor.ge_fit_plus_ln_body_fat
+            name: Body-fat publisher
+            secondary_info: last-changed
+      - type: markdown
+        content: |
+          ### Figure overlay
+          The Body view ships with a masculine scan figure. The HACS package also includes a feminine variant at `www/ge_fit_plus_ln_body_female.png`; swap the image reference in the dashboard YAML when needed.
+
+          The figure is an anonymous visualization only; measured values always come from the scale entities.

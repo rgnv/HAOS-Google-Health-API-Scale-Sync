@@ -4,10 +4,42 @@
       "missing_write_scope": "The Google account did not grant the health-metrics write permission."
     },
     "step": {
+      "user": {
+        "title": "Scale profile and sync",
+        "description": "Set the profile values used for body-composition context. These values stay in Home Assistant. Google authorization is the next step.",
+        "data": {
+          "height_m": "Height (m)",
+          "age": "Age",
+          "sex": "Sex",
+          "birth_date": "Birth date (YYYY-MM-DD, optional)",
+          "sync_body_fat": "Write body fat to Google Health"
+        }
+      },
       "reauth_confirm": {
         "title": "Reauthorize Google Health API",
         "description": "Authorize Home Assistant to write weight and body-fat measurements."
       }
+    },
+    "error": {
+      "invalid_birth_date": "Birth date must use YYYY-MM-DD."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Scale profile and sync",
+        "description": "Update profile context and choose whether body fat is written alongside weight.",
+        "data": {
+          "height_m": "Height (m)",
+          "age": "Age",
+          "sex": "Sex",
+          "birth_date": "Birth date (YYYY-MM-DD, optional)",
+          "sync_body_fat": "Write body fat to Google Health"
+        }
+      }
+    },
+    "error": {
+      "invalid_birth_date": "Birth date must use YYYY-MM-DD."
     }
   }
 }

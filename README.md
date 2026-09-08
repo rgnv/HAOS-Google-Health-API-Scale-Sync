@@ -34,10 +34,23 @@ The sidecar CLI and the HACS integration use the same Google Health API data mod
 
 The repository ships a native-card dashboard for the HACS integration:
 
-- `dashboards/ge_fit_plus_ln_overview.yaml` — graphite/amber Monitor view with the latest reading, body composition, 30-day trends, recent history, and Google sync status.
+- `dashboards/ge_fit_plus_ln_overview.yaml` — graphite/amber Monitor view with the latest reading, body composition, 30-day trends, recent history, Google sync status, and a Setup view.
 - `www/ge_fit_plus_ln_health_hero.svg` — lightweight geometric header artwork; no external frontend card dependency.
+- `www/ge_fit_plus_ln_body_male.png` and `www/ge_fit_plus_ln_body_female.png` — Dream-generated, alpha-keyed, anonymous scan-figure overlays. The Body view uses the masculine variant by default; the feminine variant is available by changing one image path in the YAML.
 
-For a storage-mode dashboard, copy the SVG into Home Assistant's `/config/www/` and merge the `Body` view from the dashboard YAML into the Overview dashboard. The dashboard uses only built-in Home Assistant cards and remains useful when the scale is unavailable.
+For a storage-mode dashboard, copy the SVG and PNG files into Home Assistant's `/config/www/` and merge the views from the dashboard YAML into the Overview dashboard. The dashboard uses only built-in Home Assistant cards and remains useful when the scale is unavailable.
+
+## Onboarding and settings
+
+The first install flow asks for the local profile context used by the dashboard and adapter workflow:
+
+- height in meters
+- age
+- sex (male, female, or prefer not to say)
+- optional birth date
+- whether body fat should be written alongside weight
+
+The same fields are editable later from the integration's **Configure** / Options dialog. Profile values are stored in Home Assistant config-entry options and are never included in this repository. The `sync_body_fat` option is enforced by the write service; weight continues to be written when body-fat sync is disabled.
 
 ## Architecture
 

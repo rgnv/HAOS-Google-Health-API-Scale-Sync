@@ -19,6 +19,7 @@ from .const import (
     ATTR_MEASURED_AT,
     ATTR_MEASUREMENT_ID,
     ATTR_WEIGHT_KG,
+    CONF_SYNC_BODY_FAT,
     DOMAIN,
     SERVICE_LOG_BODY_MEASUREMENTS,
 )
@@ -73,13 +74,17 @@ async def async_setup_services(hass: HomeAssistant) -> None:
         )
         weight_response = await runtime.api.create_weight(measurement)
         fat_response = None
-        if measurement.body_fat_percent is not None:
+        body_fat_enabled = entry.options.get(CONF_SYNC_BODY_FAT, True)
+        if measurement.body_fat_percent is not None and body_fat_enabled:
             fat_response = await runtime.api.create_body_fat(measurement)
+        elif measurement.body_fat_percent is not None:
+            _LOGGER.info("Skipped body-fat write because sync_body_fat is disabled")
         _LOGGER.info(
-            "Accepted Google Health measurement%s (weight_http=%s, body_fat_http=%s)",
+            "Accepted Google Health measurement%s (weight_http=%s, body_fat_http=%s, body_fat_sync=%s)",
             f" {measurement.measurement_id}" if measurement.measurement_id else "",
             weight_response.get("_http_status"),
             fat_response.get("_http_status") if fat_response else None,
+            body_fat_enabled,
         )
 
     hass.services.async_register(
