@@ -51,7 +51,7 @@ The sidecar polls the measurement-ID sensor. A new measurement ID is the event b
    https://www.googleapis.com/auth/googlehealth.health_metrics_and_measurements.writeonly
    ```
 
-The API's write-only scope can create and manage data written by this client; it is not a substitute for read access to other sources.
+The API's write-only scope can create and manage data written by this client; it is not a substitute for read access to other sources. The HACS integration records the HTTP status for each data type in the Home Assistant log; a successful `204` response has an empty body and is still an accepted write. Read-back requires the separate readonly scope and an explicit reauthorization.
 
 See the official [setup guide](https://developers.google.com/health/setup), [data types](https://developers.google.com/health/data-types), and [data point create method](https://developers.google.com/health/reference/rest/v4/users.dataTypes.dataPoints/create).
 

@@ -76,10 +76,10 @@ async def async_setup_services(hass: HomeAssistant) -> None:
         if measurement.body_fat_percent is not None:
             fat_response = await runtime.api.create_body_fat(measurement)
         _LOGGER.info(
-            "Wrote Google Health measurement%s (weight=%s, body_fat=%s)",
+            "Accepted Google Health measurement%s (weight_http=%s, body_fat_http=%s)",
             f" {measurement.measurement_id}" if measurement.measurement_id else "",
-            weight_response.get("name"),
-            fat_response.get("name") if fat_response else None,
+            weight_response.get("_http_status"),
+            fat_response.get("_http_status") if fat_response else None,
         )
 
     hass.services.async_register(

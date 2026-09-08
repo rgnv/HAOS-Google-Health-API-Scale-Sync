@@ -37,8 +37,12 @@ class GoogleHealthApi:
                 detail = await response.text()
                 raise GoogleHealthApiError(f"Google Health API HTTP {response.status}: {detail}")
             if response.status == 204:
-                return {}
-            return await response.json()
+                return {"_http_status": response.status}
+            result = await response.json()
+            if not isinstance(result, dict):
+                raise GoogleHealthApiError("Google Health API returned a non-object response")
+            result["_http_status"] = response.status
+            return result
 
     async def create_weight(self, measurement: Measurement) -> dict:
         """Create a weight data point."""
