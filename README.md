@@ -68,6 +68,12 @@ Run the one-time browser authorization:
 docker compose --env-file .env -f compose.example.yaml run --rm sync auth
 ```
 
+The OAuth callback is available at `http://127.0.0.1:8765/`. If the container host is remote, forward that port over SSH and open the printed authorization URL in your local browser:
+
+```bash
+ssh -N -L 8765:127.0.0.1:8765 user@container-host
+```
+
 Then test one synchronization pass:
 
 ```bash

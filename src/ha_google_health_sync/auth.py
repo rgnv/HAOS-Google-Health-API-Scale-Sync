@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from pathlib import Path
 
 from google.auth.transport.requests import Request
@@ -48,10 +49,11 @@ def authenticate(client_secrets: Path, token_file: Path) -> None:
     """Run the one-time local browser OAuth flow."""
     flow = InstalledAppFlow.from_client_secrets_file(str(client_secrets), SCOPES)
     credentials = flow.run_local_server(
-        host="127.0.0.1",
-        port=8765,
+        host=os.environ.get("OAUTH_BIND_HOST", "0.0.0.0"),
+        port=int(os.environ.get("OAUTH_PORT", "8765")),
         access_type="offline",
         prompt="consent",
+        open_browser=False,
     )
     token_file.parent.mkdir(parents=True, exist_ok=True)
     token_file.write_text(credentials.to_json() + "\n", encoding="utf-8")
