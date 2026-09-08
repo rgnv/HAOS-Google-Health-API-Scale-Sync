@@ -1,0 +1,65 @@
+blueprint:
+  name: Google Health API - log body scale measurement
+  description: Write a new Home Assistant body-scale measurement to Google Health API.
+  domain: automation
+  input:
+    measurement_id_entity:
+      name: Measurement ID entity
+      description: Changes once per completed measurement, including repeated weights.
+      selector:
+        entity:
+          domain: sensor
+    weight_entity:
+      name: Weight entity
+      selector:
+        entity:
+          domain: sensor
+    body_fat_entity:
+      name: Body-fat entity
+      default: ""
+      selector:
+        entity:
+          domain: sensor
+          multiple: false
+    google_health_entry_id:
+      name: Google Health config entry ID
+      description: Optional when only one account is configured.
+      default: ""
+      selector:
+        text: {}
+
+mode: queued
+max: 10
+
+trigger:
+  - platform: state
+    entity_id: !input measurement_id_entity
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.to_state.state not in ['unknown', 'unavailable', 'none', ''] }}"
+
+action:
+  - variables:
+      weight_entity: !input weight_entity
+      body_fat_entity: !input body_fat_entity
+      entry_id: !input google_health_entry_id
+      weight_value: "{{ states(weight_entity) | float(0) }}"
+      fat_value: "{{ states(body_fat_entity) | float(-1) if body_fat_entity else -1 }}"
+  - choose:
+      - conditions: "{{ fat_value >= 0 }}"
+        sequence:
+          - action: google_health_scale_sync.log_body_measurements
+            data:
+              weight_kg: "{{ weight_value }}"
+              body_fat_percent: "{{ fat_value }}"
+              measured_at: "{{ trigger.to_state.last_changed }}"
+              measurement_id: "{{ trigger.to_state.state }}"
+              entry_id: "{{ entry_id }}"
+    default:
+      - action: google_health_scale_sync.log_body_measurements
+        data:
+          weight_kg: "{{ weight_value }}"
+          measured_at: "{{ trigger.to_state.last_changed }}"
+          measurement_id: "{{ trigger.to_state.state }}"
+          entry_id: "{{ entry_id }}"

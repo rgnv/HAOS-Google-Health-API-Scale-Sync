@@ -17,6 +17,19 @@ Home Assistant 2026.8 includes a `Google Health` integration that reads cloud da
 
 A small community custom component also exists for this use case. This project is independent, MIT-licensed, uses a sidecar rather than patching Home Assistant internals, and includes a durable deduplication store and container deployment.
 
+## HACS installation
+
+This repository includes a HACS-installable Home Assistant custom integration in `custom_components/google_health_scale_sync/`.
+
+1. In HACS, open **Integrations** and choose **Custom repositories**.
+2. Add this repository URL and select **Integration**.
+3. Install **Google Health API Scale Sync** and restart Home Assistant.
+4. Add the integration from **Settings → Devices & services → Add integration**.
+5. Complete Google OAuth and grant the health-metrics write permission.
+6. Import `blueprints/google_health_scale_sync_body_scale_logger.yaml` to trigger a write on each new measurement ID.
+
+The sidecar CLI and the HACS integration use the same Google Health API data model. Use one write path for a given measurement source, not both.
+
 ## Architecture
 
 ```text

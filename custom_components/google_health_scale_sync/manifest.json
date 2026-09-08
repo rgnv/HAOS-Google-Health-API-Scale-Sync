@@ -1,0 +1,13 @@
+{
+  "domain": "google_health_scale_sync",
+  "name": "Google Health API Scale Sync",
+  "codeowners": ["@rgnv"],
+  "config_flow": true,
+  "dependencies": ["application_credentials", "http"],
+  "documentation": "https://github.com/rgnv/HAOS-Google-Health-API-Scale-Sync",
+  "integration_type": "service",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/rgnv/HAOS-Google-Health-API-Scale-Sync/issues",
+  "requirements": [],
+  "version": "0.2.0"
+}

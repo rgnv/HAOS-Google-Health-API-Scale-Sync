@@ -1,0 +1,44 @@
+log_body_measurements:
+  name: Log body measurements
+  description: Write a weight and optional body-fat measurement to Google Health API.
+  fields:
+    weight_kg:
+      name: Weight
+      description: Body weight in kilograms.
+      required: true
+      example: 82.4
+      selector:
+        number:
+          min: 5
+          max: 300
+          step: 0.001
+          mode: box
+    body_fat_percent:
+      name: Body fat
+      description: Body-fat percentage points.
+      required: false
+      example: 21.5
+      selector:
+        number:
+          min: 0
+          max: 100
+          step: 0.001
+          mode: box
+    measured_at:
+      name: Measured at
+      description: Time of the measurement. Defaults to the current time.
+      required: false
+      selector:
+        datetime: {}
+    measurement_id:
+      name: Measurement ID
+      description: Optional source measurement sequence identifier.
+      required: false
+      selector:
+        text: {}
+    entry_id:
+      name: Google Health account entry ID
+      description: Optional config-entry ID for multi-account installations.
+      required: false
+      selector:
+        text: {}

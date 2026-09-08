@@ -1,0 +1,13 @@
+{
+  "config": {
+    "abort": {
+      "missing_write_scope": "The Google account did not grant the health-metrics write permission."
+    },
+    "step": {
+      "reauth_confirm": {
+        "title": "Reauthorize Google Health API",
+        "description": "Authorize Home Assistant to write weight and body-fat measurements."
+      }
+    }
+  }
+}
