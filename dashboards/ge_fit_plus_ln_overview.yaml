@@ -13,49 +13,208 @@ views:
   sections:
   - cards:
     - type: markdown
-      content: '## Devices · scale setup
-
-        Configure the profile and sync behavior once, then return to **Body metrics**
-        for the monitor view.
+      content: '## Home Assistant devices
 
 
-        [Open Scale Sync settings](/config/integrations/integration/google_health_scale_sync)
-
-
-        The setup form stores height, age, sex, optional birth date, and body-fat
-        sync preference locally in Home Assistant. Google authorization remains limited
-        to the write scope required for measurements.
+        Lights, switches, feeders, appliance controls, phone sensors, and the scale
+        are grouped below. Use the entity rows for direct controls and live status.
 
         '
-    - type: entities
-      title: Runtime checks
-      show_header_toggle: false
-      entities:
-      - entity: automation.ge_fit_plus_ln_write_google_health
-        name: Google Health automation
-        secondary_info: last-triggered
-      - entity: sensor.ge_fit_plus_ln_measurement_id
-        name: Latest measurement
-        secondary_info: last-changed
-      - entity: sensor.ge_fit_plus_ln_weight_lb
-        name: Weight (lb) publisher
-        secondary_info: last-changed
-      - entity: sensor.ge_fit_plus_ln_body_fat
-        name: Body-fat publisher
-        secondary_info: last-changed
-    - type: markdown
-      content: '### Figure overlay
-
-        The Body view ships with a masculine scan figure. The HACS package also includes
-        a feminine variant at `www/ge_fit_plus_ln_body_female.png`; swap the image
-        reference in the dashboard YAML when needed.
-
-
-        The figure is an anonymous visualization only; measured values always come
-        from the scale entities.
-
-        '
+    - type: grid
+      columns: 2
+      square: false
+      cards:
+      - type: entities
+        title: Lights
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: light.bedroom_stand_segment_001
+        - entity: light.bedroom_stand_segment_002
+        - entity: light.bedroom_stand_segment_003
+        - entity: light.bedroom_stand_segment_004
+        - entity: light.bedroom_stand_segment_005
+        - entity: light.bedroom_stand_segment_006
+        - entity: light.bedroom_stand_segment_007
+        - entity: light.h6076_4d05
+      - type: entities
+        title: Switches
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: switch.bambi_neutered_spayed
+        - entity: switch.bedroom_stand_dream_view_toggle
+        - entity: switch.bedroom_stand_gradient_toggle
+        - entity: switch.bedroom_stand_power_switch
+        - entity: switch.kettle_power_switch
+        - entity: switch.polar_wet_food_feeder_manually_open_close_lid
   - cards:
+    - type: grid
+      columns: 2
+      square: false
+      cards:
+      - type: entities
+        title: Polar wet food feeder
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: button.polar_wet_food_feeder_reposition_schedule
+        - entity: button.polar_wet_food_feeder_ring_bell
+        - entity: button.polar_wet_food_feeder_rotate_food_bowl
+        - entity: button.polar_wet_food_feeder_turn_off_indicator
+        - entity: button.polar_wet_food_feeder_turn_on_indicator
+        - entity: switch.polar_wet_food_feeder_manually_open_close_lid
+        - entity: select.polar_wet_food_feeder_plate_position
+        - entity: binary_sensor.polar_wet_food_feeder_battery_status
+        - entity: binary_sensor.polar_wet_food_feeder_food_status
+        - entity: binary_sensor.polar_wet_food_feeder_indicator
+        - entity: binary_sensor.polar_wet_food_feeder_lid_status
+        - entity: binary_sensor.polar_wet_food_feeder_sleep_mode
+        - entity: binary_sensor.polar_wet_food_feeder_today_s_feeding_schedule
+        - entity: binary_sensor.polar_wet_food_feeder_wi_fi
+        - entity: sensor.polar_wet_food_feeder_battery_ac
+        - entity: sensor.polar_wet_food_feeder_battery_level
+        - entity: sensor.polar_wet_food_feeder_feeding_begins
+        - entity: sensor.polar_wet_food_feeder_feeding_ends
+        - entity: sensor.polar_wet_food_feeder_feeding_schedule
+        - entity: sensor.polar_wet_food_feeder_plate_position
+        - entity: sensor.polar_wet_food_feeder_temperature
+        - entity: sensor.polar_wet_food_feeder_wi_fi_signal_strength
+        - entity: sensor.polar_wet_food_feeder_wi_fi_ssid
+        - entity: update.polar_wet_food_feeder_firmware
+      - type: entities
+        title: Tower food dispenser
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: button.tower_delete_selected_plan
+        - entity: button.tower_desiccant_reset
+        - entity: button.tower_disable_feeding_schedule
+        - entity: button.tower_disable_selected_plan
+        - entity: button.tower_disable_today_s_feeding_schedule
+        - entity: button.tower_enable_feeding_schedule
+        - entity: button.tower_enable_selected_plan
+        - entity: button.tower_enable_today_s_feeding_schedule
+        - entity: button.tower_manual_feed
+        - entity: button.tower_skip_selected_plan_today
+        - entity: button.tower_turn_off_indicator
+        - entity: button.tower_turn_on_indicator
+        - entity: button.tower_un_skip_selected_plan_today
+        - entity: select.tower_feeding_schedule
+        - entity: select.tower_manual_feed_quantity
+        - entity: select.tower_today_s_feeding_schedule
+        - entity: number.tower_desiccant_frequency
+        - entity: binary_sensor.tower_battery_status
+        - entity: binary_sensor.tower_feeding_schedule
+        - entity: binary_sensor.tower_food_dispenser
+        - entity: binary_sensor.tower_food_status
+        - entity: binary_sensor.tower_indicator
+        - entity: binary_sensor.tower_sleep_mode
+        - entity: binary_sensor.tower_today_s_feeding_schedule
+        - entity: binary_sensor.tower_wi_fi
+        - entity: sensor.tower_battery_ac
+        - entity: sensor.tower_battery_level
+        - entity: sensor.tower_buttons_lock
+        - entity: sensor.tower_camera_resolution
+        - entity: sensor.tower_desiccant_remaining_days
+        - entity: sensor.tower_last_feed_quantity_volume
+        - entity: sensor.tower_last_feed_quantity_weight
+        - entity: sensor.tower_last_feed_time
+        - entity: sensor.tower_next_feed_quantity_volume
+        - entity: sensor.tower_next_feed_quantity_weight
+        - entity: sensor.tower_next_feed_time
+        - entity: sensor.tower_night_vision_mode
+        - entity: sensor.tower_today_s_feeding_quantity_volume
+        - entity: sensor.tower_today_s_feeding_quantity_weight
+        - entity: sensor.tower_today_s_feeding_times
+        - entity: sensor.tower_video_recording_enabled
+        - entity: sensor.tower_video_recording_mode
+        - entity: sensor.tower_video_recording_switch
+        - entity: sensor.tower_wi_fi_signal_strength
+        - entity: sensor.tower_wi_fi_ssid
+        - entity: update.tower_firmware
+  - cards:
+    - type: grid
+      columns: 2
+      square: false
+      cards:
+      - type: entities
+        title: Kettle
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: button.kettle_activate_mode_m1
+        - entity: button.kettle_activate_mode_m2
+        - entity: button.kettle_activate_mode_m3
+        - entity: button.kettle_activate_mode_m4
+        - entity: button.kettle_request_platform_api_state
+        - entity: switch.kettle_power_switch
+        - entity: select.kettle_mode
+        - entity: number.kettle_target_temperature
+        - entity: sensor.kettle_status
+        - entity: sensor.kettle_temperature
+      - type: entities
+        title: Bedroom stand
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: button.h6076_4d05_request_platform_api_state
+        - entity: switch.bedroom_stand_dream_view_toggle
+        - entity: switch.bedroom_stand_gradient_toggle
+        - entity: switch.bedroom_stand_power_switch
+        - entity: sensor.h6076_4d05_status
+        - entity: light.bedroom_stand_segment_001
+        - entity: light.bedroom_stand_segment_002
+        - entity: light.bedroom_stand_segment_003
+        - entity: light.bedroom_stand_segment_004
+        - entity: light.bedroom_stand_segment_005
+        - entity: light.bedroom_stand_segment_006
+        - entity: light.bedroom_stand_segment_007
+        - entity: light.h6076_4d05
+  - cards:
+    - type: grid
+      columns: 2
+      square: false
+      cards:
+      - type: entities
+        title: Sisu phone sensors
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: binary_sensor.sisu_is_charging
+        - entity: binary_sensor.sisu_music_active
+        - entity: sensor.sisu_battery_health
+        - entity: sensor.sisu_battery_level
+        - entity: sensor.sisu_battery_power
+        - entity: sensor.sisu_battery_state
+        - entity: sensor.sisu_battery_temperature
+        - entity: sensor.sisu_bluetooth_connection
+        - entity: sensor.sisu_current_time_zone
+        - entity: sensor.sisu_detected_activity
+        - entity: sensor.sisu_geocoded_location
+        - entity: sensor.sisu_network_type
+        - entity: sensor.sisu_sleep_confidence
+        - entity: sensor.sisu_steps_sensor
+        - entity: sensor.sisu_wifi_connection
+        - entity: sensor.sisu_wifi_signal_strength
+      - type: entities
+        title: GE Fit Plus scale
+        show_header_toggle: false
+        state_color: true
+        entities:
+        - entity: sensor.ge_fit_plus_ln_bmi
+        - entity: sensor.ge_fit_plus_ln_body_fat
+        - entity: sensor.ge_fit_plus_ln_body_water
+        - entity: sensor.ge_fit_plus_ln_bone_mass
+        - entity: sensor.ge_fit_plus_ln_fat_free_mass
+        - entity: sensor.ge_fit_plus_ln_fat_free_mass_lb
+        - entity: sensor.ge_fit_plus_ln_measurement_id
+        - entity: sensor.ge_fit_plus_ln_measurement_source
+        - entity: sensor.ge_fit_plus_ln_muscle_mass
+        - entity: sensor.ge_fit_plus_ln_protein
+        - entity: sensor.ge_fit_plus_ln_skeletal_muscle
+        - entity: sensor.ge_fit_plus_ln_weight
+        - entity: sensor.ge_fit_plus_ln_weight_lb
     - type: entities
       title: Sync status
       show_header_toggle: false
