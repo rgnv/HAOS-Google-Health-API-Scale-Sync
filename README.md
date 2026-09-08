@@ -30,6 +30,15 @@ This repository includes a HACS-installable Home Assistant custom integration in
 
 The sidecar CLI and the HACS integration use the same Google Health API data model. Use one write path for a given measurement source, not both.
 
+## Lovelace dashboard
+
+The repository ships a native-card dashboard for the HACS integration:
+
+- `dashboards/ge_fit_plus_ln_overview.yaml` — graphite/amber Monitor view with the latest reading, body composition, 30-day trends, recent history, and Google sync status.
+- `www/ge_fit_plus_ln_health_hero.svg` — lightweight geometric header artwork; no external frontend card dependency.
+
+For a storage-mode dashboard, copy the SVG into Home Assistant's `/config/www/` and merge the `Body` view from the dashboard YAML into the Overview dashboard. The dashboard uses only built-in Home Assistant cards and remains useful when the scale is unavailable.
+
 ## Architecture
 
 ```text

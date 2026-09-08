@@ -1,0 +1,154 @@
+title: Body
+views:
+  - title: Body
+    path: body
+    icon: mdi:scale-bathroom
+    badges: []
+    cards:
+      - type: picture-elements
+        image: /local/ge_fit_plus_ln_health_hero.svg
+        elements:
+          - type: state-label
+            entity: sensor.ge_fit_plus_ln_weight
+            style:
+              left: 70%
+              top: 37%
+              color: '#fff8ed'
+              font-size: 3.6em
+              font-weight: 700
+              letter-spacing: '-0.04em'
+              text-shadow: 0 2px 18px rgba(0,0,0,.55)
+          - type: state-label
+            entity: sensor.ge_fit_plus_ln_body_fat
+            style:
+              left: 70%
+              top: 58%
+              color: '#f3c887'
+              font-size: 1.35em
+              font-weight: 600
+              letter-spacing: '.02em'
+              text-shadow: 0 2px 12px rgba(0,0,0,.55)
+          - type: state-label
+            entity: sensor.ge_fit_plus_ln_measurement_id
+            style:
+              left: 70%
+              top: 77%
+              color: '#c3d8cf'
+              font-size: .72em
+              font-weight: 500
+              opacity: .92
+              text-shadow: 0 1px 8px rgba(0,0,0,.65)
+      - type: markdown
+        content: |
+          ## Body scan
+          A calm, glanceable view of the latest reading. The measurement ID is the event boundary, so repeated weights remain visible as separate weigh-ins.
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: tile
+            entity: sensor.ge_fit_plus_ln_weight
+            name: Weight
+            icon: mdi:scale-bathroom
+            color: amber
+            vertical: true
+          - type: tile
+            entity: sensor.ge_fit_plus_ln_body_fat
+            name: Body fat
+            icon: mdi:human
+            color: deep-orange
+            vertical: true
+          - type: tile
+            entity: sensor.ge_fit_plus_ln_bmi
+            name: BMI
+            icon: mdi:chart-bell-curve-cumulative
+            color: teal
+            vertical: true
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: gauge
+            entity: sensor.ge_fit_plus_ln_body_fat
+            name: Body fat
+            unit: '%'
+            min: 3
+            max: 60
+            needle: true
+            severity:
+              green: 10
+              yellow: 22
+              red: 30
+          - type: gauge
+            entity: sensor.ge_fit_plus_ln_bmi
+            name: BMI
+            min: 10
+            max: 40
+            needle: true
+            severity:
+              green: 18.5
+              yellow: 25
+              red: 30
+      - type: statistics-graph
+        title: Weight · 30 days
+        chart_type: line
+        period: day
+        days_to_show: 30
+        stat_types:
+          - mean
+          - min
+          - max
+        entities:
+          - sensor.ge_fit_plus_ln_weight
+      - type: statistics-graph
+        title: Body fat · 30 days
+        chart_type: line
+        period: day
+        days_to_show: 30
+        stat_types:
+          - mean
+          - min
+          - max
+        entities:
+          - sensor.ge_fit_plus_ln_body_fat
+      - type: entities
+        title: Composition
+        show_header_toggle: false
+        entities:
+          - entity: sensor.ge_fit_plus_ln_body_water
+            name: Body water
+          - entity: sensor.ge_fit_plus_ln_protein
+            name: Protein
+          - entity: sensor.ge_fit_plus_ln_muscle_mass
+            name: Muscle mass
+          - entity: sensor.ge_fit_plus_ln_skeletal_muscle
+            name: Skeletal muscle
+          - entity: sensor.ge_fit_plus_ln_bone_mass
+            name: Bone mass
+          - entity: sensor.ge_fit_plus_ln_fat_free_mass
+            name: Fat-free mass
+      - type: entities
+        title: Sync status
+        show_header_toggle: false
+        entities:
+          - entity: automation.ge_fit_plus_ln_write_google_health
+            name: Google Health automation
+            secondary_info: last-triggered
+          - entity: sensor.ge_fit_plus_ln_measurement_id
+            name: Latest measurement
+            secondary_info: last-changed
+          - entity: sensor.ge_fit_plus_ln_weight
+            name: Latest weight
+            secondary_info: last-changed
+          - entity: sensor.ge_fit_plus_ln_body_fat
+            name: Latest body fat
+            secondary_info: last-changed
+      - type: history-graph
+        title: Recent readings
+        hours_to_show: 168
+        show_names: true
+        entities:
+          - entity: sensor.ge_fit_plus_ln_weight
+            name: Weight
+          - entity: sensor.ge_fit_plus_ln_body_fat
+            name: Body fat
