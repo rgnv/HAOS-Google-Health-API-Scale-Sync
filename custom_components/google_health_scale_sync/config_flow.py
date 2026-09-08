@@ -3,6 +3,7 @@
 from collections.abc import Mapping
 from datetime import datetime
 import logging
+import re
 from typing import Any
 
 import voluptuous as vol
@@ -48,7 +49,7 @@ PROFILE_SCHEMA = vol.Schema(
         vol.Optional(
             CONF_BIRTH_DATE,
             default="",
-        ): vol.All(vol.Coerce(str), vol.Match(r"^(|\d{4}-\d{2}-\d{2})$")),
+        ): cv.string,
         vol.Required(CONF_SYNC_BODY_FAT, default=DEFAULT_SYNC_BODY_FAT): cv.boolean,
     }
 )
@@ -58,6 +59,8 @@ def _profile_error(options: Mapping[str, Any]) -> str | None:
     """Validate profile fields that need a human-readable error."""
     birth_date = str(options.get(CONF_BIRTH_DATE, "")).strip()
     if birth_date:
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", birth_date):
+            return "invalid_birth_date"
         try:
             datetime.strptime(birth_date, "%Y-%m-%d")
         except ValueError:
