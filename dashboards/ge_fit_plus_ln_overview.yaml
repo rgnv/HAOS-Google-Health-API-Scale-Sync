@@ -1,8 +1,80 @@
-title: Body
+title: Health
 views:
-- title: Body
+- title: Devices
+  path: devices
+  icon: mdi:devices
+  type: sections
+  max_columns: 2
+  dense_section_placement: true
+  badges:
+  - type: entity
+    entity: button.tower_manual_feed
+    show_name: true
+  sections:
+  - cards:
+    - type: markdown
+      content: '## Devices · scale setup
+
+        Configure the profile and sync behavior once, then return to **Body metrics**
+        for the monitor view.
+
+
+        [Open Scale Sync settings](/config/integrations/integration/google_health_scale_sync)
+
+
+        The setup form stores height, age, sex, optional birth date, and body-fat
+        sync preference locally in Home Assistant. Google authorization remains limited
+        to the write scope required for measurements.
+
+        '
+    - type: entities
+      title: Runtime checks
+      show_header_toggle: false
+      entities:
+      - entity: automation.ge_fit_plus_ln_write_google_health
+        name: Google Health automation
+        secondary_info: last-triggered
+      - entity: sensor.ge_fit_plus_ln_measurement_id
+        name: Latest measurement
+        secondary_info: last-changed
+      - entity: sensor.ge_fit_plus_ln_weight_lb
+        name: Weight (lb) publisher
+        secondary_info: last-changed
+      - entity: sensor.ge_fit_plus_ln_body_fat
+        name: Body-fat publisher
+        secondary_info: last-changed
+    - type: markdown
+      content: '### Figure overlay
+
+        The Body view ships with a masculine scan figure. The HACS package also includes
+        a feminine variant at `www/ge_fit_plus_ln_body_female.png`; swap the image
+        reference in the dashboard YAML when needed.
+
+
+        The figure is an anonymous visualization only; measured values always come
+        from the scale entities.
+
+        '
+  - cards:
+    - type: entities
+      title: Sync status
+      show_header_toggle: false
+      entities:
+      - entity: automation.ge_fit_plus_ln_write_google_health
+        name: Google Health automation
+        secondary_info: last-triggered
+      - entity: sensor.ge_fit_plus_ln_measurement_id
+        name: Latest measurement
+        secondary_info: last-changed
+      - entity: sensor.ge_fit_plus_ln_weight_lb
+        name: Latest weight (lb)
+        secondary_info: last-changed
+      - entity: sensor.ge_fit_plus_ln_body_fat
+        name: Latest body fat
+        secondary_info: last-changed
+- title: Body metrics
   path: body
-  icon: mdi:scale-bathroom
+  icon: mdi:human
   type: sections
   max_columns: 2
   dense_section_placement: true
@@ -190,87 +262,19 @@ views:
         entities:
         - sensor.ge_fit_plus_ln_body_fat
   - cards:
-    - type: grid
-      columns: 2
-      square: false
-      cards:
-      - type: entities
-        title: Composition
-        show_header_toggle: false
-        entities:
-        - entity: sensor.ge_fit_plus_ln_body_water
-          name: Body water
-        - entity: sensor.ge_fit_plus_ln_protein
-          name: Protein
-        - entity: sensor.ge_fit_plus_ln_muscle_mass
-          name: Muscle mass
-        - entity: sensor.ge_fit_plus_ln_skeletal_muscle
-          name: Skeletal muscle
-        - entity: sensor.ge_fit_plus_ln_bone_mass
-          name: Bone mass
-        - entity: sensor.ge_fit_plus_ln_fat_free_mass_lb
-          name: Fat-free mass (lb)
-      - type: entities
-        title: Sync status
-        show_header_toggle: false
-        entities:
-        - entity: automation.ge_fit_plus_ln_write_google_health
-          name: Google Health automation
-          secondary_info: last-triggered
-        - entity: sensor.ge_fit_plus_ln_measurement_id
-          name: Latest measurement
-          secondary_info: last-changed
-        - entity: sensor.ge_fit_plus_ln_weight_lb
-          name: Latest weight (lb)
-          secondary_info: last-changed
-        - entity: sensor.ge_fit_plus_ln_body_fat
-          name: Latest body fat
-          secondary_info: last-changed
-- title: Setup
-  path: setup
-  icon: mdi:tune-variant
-  badges: []
-  cards:
-  - type: markdown
-    content: '## Scale setup
-
-      Configure the profile and sync behavior once, then return to **Body** for the
-      monitor view.
-
-
-      [Open Scale Sync settings](/config/integrations/integration/google_health_scale_sync)
-
-
-      The setup form stores height, age, sex, optional birth date, and body-fat sync
-      preference locally in Home Assistant. Google authorization remains limited to
-      the write scope required for measurements.
-
-      '
-  - type: entities
-    title: Runtime checks
-    show_header_toggle: false
-    entities:
-    - entity: automation.ge_fit_plus_ln_write_google_health
-      name: Google Health automation
-      secondary_info: last-triggered
-    - entity: sensor.ge_fit_plus_ln_measurement_id
-      name: Latest measurement
-      secondary_info: last-changed
-    - entity: sensor.ge_fit_plus_ln_weight_lb
-      name: Weight (lb) publisher
-      secondary_info: last-changed
-    - entity: sensor.ge_fit_plus_ln_body_fat
-      name: Body-fat publisher
-      secondary_info: last-changed
-  - type: markdown
-    content: '### Figure overlay
-
-      The Body view ships with a masculine scan figure. The HACS package also includes
-      a feminine variant at `www/ge_fit_plus_ln_body_female.png`; swap the image reference
-      in the dashboard YAML when needed.
-
-
-      The figure is an anonymous visualization only; measured values always come from
-      the scale entities.
-
-      '
+    - type: entities
+      title: Composition
+      show_header_toggle: false
+      entities:
+      - entity: sensor.ge_fit_plus_ln_body_water
+        name: Body water
+      - entity: sensor.ge_fit_plus_ln_protein
+        name: Protein
+      - entity: sensor.ge_fit_plus_ln_muscle_mass
+        name: Muscle mass
+      - entity: sensor.ge_fit_plus_ln_skeletal_muscle
+        name: Skeletal muscle
+      - entity: sensor.ge_fit_plus_ln_bone_mass
+        name: Bone mass
+      - entity: sensor.ge_fit_plus_ln_fat_free_mass_lb
+        name: Fat-free mass (lb)
